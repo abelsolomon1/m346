@@ -2,8 +2,7 @@
 
 [Block1](Block1)
 [block2](block2)
-[Wichtige Git-Befehle](Wichtige-git-Befehle.md)
-[Wichtige Git-Befehle](Wichtige-git-Befehle.pdf)
+
 
 # Unterordner Block1
 [01-AA-Virtualisierung_AS.pdf](Block1/01-AA-Virtualisierung_AS.pdf)
