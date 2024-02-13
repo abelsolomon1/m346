@@ -18,3 +18,4 @@
 [31-AA-Begriffe.pdf](block2/Aufgaben/31-AA-Begriffe.pdf)
 [A346-05-2-VM-mit-Apache-auf-Cloud.pdf](block2/Aufgaben/A346-05-2-VM-mit-Apache-auf-Cloud.pdf)
 [Erklaerung_Begriffe](block2/Aufgaben/Erklaerung_Begriffe.md)
+[NIST](block2/Aufgaben/NIST.pdf)
