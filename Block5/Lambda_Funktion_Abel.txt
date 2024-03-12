@@ -1,0 +1,44 @@
+!/bin/bash
+
+# Autor: Abel Solomon
+# Datum: 12.03.2024
+# Zweck: Dieses Skript erstellt eine Lambda-Funktion in AWS, ruft sie mit Testzahlen auf, speichert das Ergebnis und löscht dann die Lambda-Funktion.
+
+# Account ID herausfinden
+ACCOUNTID=$(aws sts get-caller-identity --query "Account" --output text)
+
+# ARN fuer die Labrole erstellen
+LABROLEARN="arn:aws:iam::$ACCOUNTID:role/LabRole"
+
+# Index.js Datei mit der Funktion erstellen
+cat << EOF > index.js
+exports.handler = async function(event, context) {
+    console.log("EVENT\n" + JSON.stringify(event, null, 2));
+    let n1 = event.number1;
+    let n2 = event.number2;
+    let sum = n1 + n2;
+    let body = {number1: n1, number2: n2, sum: sum};
+    return JSON.stringify(body);
+}
+EOF
+
+#  das deployment package erstellen (function.zip)
+zip function.zip index.js
+
+#  Lambda Funktion in AWS erstellen
+aws lambda create-function \
+--function-name zahlen-addieren \
+--zip-file fileb://function.zip \
+--handler index.handler \
+--runtime nodejs16.x \
+--role $LABROLEARN
+
+#  die Lambda Funktion mit Testzahlen aufrufen
+aws lambda invoke \
+--function-name zahlen-addieren \
+--cli-binary-format raw-in-base64-out \
+--payload '{"number1":5, "number2":8}' \
+response.txt
+
+# Lambda Funktion loeschene
+aws lambda delete-function --function-name zahlen-addieren
